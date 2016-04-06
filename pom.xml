@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>com.orange.piditools</groupId>
+		<artifactId>piditools</artifactId>
+		<version>${pidi.tools.pom.version}</version>
+		<relativePath>../pom.xml</relativePath>
+	</parent>
+
+	<artifactId>piditools-angular-helios</artifactId>
+	<name>${project.artifactId}(${project.packaging})</name>
+	<version>${pidi.tools.version}</version>
+	<packaging>pom</packaging>
+
+	<profiles>
+		<profile>
+			<id>no-helios</id>
+		</profile>
+		<profile>
+			<id>no-angular</id>
+		</profile>
+		<profile>
+			<id>helios</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>com.github.eirslett</groupId>
+						<artifactId>frontend-maven-plugin</artifactId>
+						<!-- Use the latest released version: https://repo1.maven.org/maven2/com/github/eirslett/frontend-maven-plugin/ -->
+						<version>0.0.26</version>
+
+						<executions>
+							<execution>
+								<!-- optional: you don't really need execution ids, but it looks 
+									nice in your build log. -->
+								<id>install node and npm</id>
+								<goals>
+									<goal>install-node-and-npm</goal>
+								</goals>
+								<!-- optional: default phase is "generate-resources" -->
+								<phase>generate-resources</phase>
+								<configuration>
+									<nodeVersion>v4.2.2</nodeVersion>
+									<npmVersion>3.8.1</npmVersion>
+								</configuration>
+							</execution>
+
+							<execution>
+								<id>npm install</id>
+								<goals>
+									<goal>npm</goal>
+								</goals>
+								<!-- Optional configuration which provides for running any npm command -->
+								<configuration>
+									<arguments>install</arguments>
+								</configuration>
+							</execution>
+
+							<execution>
+								<id>bower install</id>
+								<goals>
+									<goal>bower</goal>
+								</goals>
+								<configuration>
+									<arguments>install</arguments>
+								</configuration>
+							</execution>
+
+							<execution>
+								<id>gulp build</id>
+								<goals>
+									<goal>gulp</goal>
+								</goals>
+
+								<!-- optional: the default phase is "generate-resources" -->
+								<phase>generate-resources</phase>
+
+								<configuration>
+									<!-- optional: if not specified, it will run gulp's default task 
+										(and you can remove this whole <configuration> section.) -->
+									<arguments>build</arguments>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+
+				</plugins>
+			</build>
+
+		</profile>
+		
+		<!-- To use with jenkins -->
+		<profile>
+			<id>jenkins</id>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>com.github.eirslett</groupId>
+						<artifactId>frontend-maven-plugin</artifactId>
+						<!-- Use the latest released version: https://repo1.maven.org/maven2/com/github/eirslett/frontend-maven-plugin/ -->
+						<version>0.0.26</version>
+						<executions>
+							<execution>
+								<id>npm install</id>
+								<goals>
+									<goal>npm</goal>
+								</goals>
+								<!-- Optional configuration which provides for running any npm command -->
+								<configuration>
+									<arguments>install</arguments>
+								</configuration>
+							</execution>
+							<execution>
+								<id>bower install</id>
+								<goals>
+									<goal>bower</goal>
+								</goals>
+								<configuration>
+									<arguments>install</arguments>
+								</configuration>
+							</execution>
+							<execution>
+								<id>gulp build</id>
+								<goals>
+									<goal>gulp</goal>
+								</goals>
+
+								<!-- optional: the default phase is "generate-resources" -->
+								<phase>generate-resources</phase>
+
+								<configuration>
+									<!-- optional: if not specified, it will run gulp's default task 
+										(and you can remove this whole <configuration> section.) -->
+									<arguments>build</arguments>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
+</project>

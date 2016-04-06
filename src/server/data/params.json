@@ -1,0 +1,942 @@
+{
+    "apiServiceNatif": null,
+    "updateTimeGraph": 10000,
+    "saveAutoTimer": 60000,
+    "scrutationTimer": 15000,
+    "messages": {
+        "PT": "Isoler la desserte interne avant la mesure",
+        "PC": "Isoler le branchement avant la mesure",
+        "SR": "Isoler la distribution avant la mesure",
+        "RE": "Isoler le transport avant la mesure"
+    },
+    "interview": {
+        "questions": [
+            {
+                "type": "PC",
+                "intitule": "Le client est pr&eacute;sent, je peux intervenir &agrave; son domicile",
+                "choix": [
+                    {
+                        "code": "PC_act1",
+                        "libelle": "Oui"
+                    },
+                    {
+                        "code": "PC_act2",
+                        "libelle": "Non"
+                    },
+                    {
+                        "code": "PC_act4",
+                        "libelle": "Je ne sais pas"
+                    }
+                ]
+            },
+            {
+                "type": "SR",
+                "intitule": "",
+                "choix": [
+                    {
+                        "code": "SR_act3",
+                        "libelle": "PC inaccessible"
+                    },
+                    {
+                        "code": "SR_act4",
+                        "libelle": "PC accessible"
+                    }
+                ]
+            }
+        ]
+    },
+    "offre": {
+        "profils": [
+            {
+                "code": "0",
+                "typeLigne": "ADSL",
+                "libelle": "8dB",
+                "valeur": "8",
+                "descriptions": [
+                    {
+                        "libelle": "8dB",
+                        "gras": true,
+                        "orange": false
+                    },
+                    {
+                        "libelle": " ADSL ",
+                        "gras": true,
+                        "orange": true
+                    },
+                    {
+                        "libelle": " : Offre ",
+                        "gras": false,
+                        "orange": false
+                    },
+                    {
+                        "libelle": "TV",
+                        "gras": false,
+                        "orange": true
+                    },
+                    {
+                        "libelle": " 8/18MMax",
+                        "gras": false,
+                        "orange": false
+                    }
+                ]
+            },
+            {
+                "code": "1",
+                "typeLigne": "ADSL",
+                "libelle": "10dB",
+                "valeur": "10",
+                "descriptions": [
+                    {
+                        "libelle": "10dB",
+                        "gras": true,
+                        "orange": false
+                    },
+                    {
+                        "libelle": " ADSL ",
+                        "gras": true,
+                        "orange": true
+                    },
+                    {
+                        "libelle": " : Offre Internet 8MMax* ",
+                        "gras": false,
+                        "orange": false
+                    }
+                ]
+            },
+            {
+                "code": "2",
+                "typeLigne": "ADSL",
+                "libelle": "6dB",
+                "valeur": "6",
+                "descriptions": [
+                    {
+                        "libelle": "6dB",
+                        "gras": true,
+                        "orange": false
+                    },
+                    {
+                        "libelle": " ADSL ",
+                        "gras": true,
+                        "orange": true
+                    },
+                    {
+                        "libelle": " : Offre Internet 8MMax*, autres offres Internet ou TV &eacute;tendue ",
+                        "gras": false,
+                        "orange": false
+                    }
+                ]
+            },
+            {
+                "code": "3",
+                "typeLigne": "VDSL",
+                "libelle": "6db",
+                "valeur": "6",
+                "descriptions": [
+                    {
+                        "libelle": "6dB",
+                        "gras": true,
+                        "orange": false
+                    },
+                    {
+                        "libelle": " VDSL ",
+                        "gras": true,
+                        "orange": true
+                    },
+                    {
+                        "libelle": " : Offre internet ",
+                        "gras": false,
+                        "orange": false
+                    }
+                ]
+            },
+            {
+                "code": "4",
+                "typeLigne": "VDSL",
+                "libelle": "8db",
+                "valeur": "8",
+                "descriptions": [
+                    {
+                        "libelle": "8dB",
+                        "gras": true,
+                        "orange": false
+                    },
+                    {
+                        "libelle": " VDSL ",
+                        "gras": true,
+                        "orange": true
+                    },
+                    {
+                        "libelle": " : Offre ",
+                        "gras": false,
+                        "orange": false
+                    },
+                    {
+                        "libelle": "TV",
+                        "gras": false,
+                        "orange": true
+                    }
+                ]
+            }
+        ],
+        "commentaire": "*Selon la date de production, la marge pour l'offre Internet 8MMax peut-&ecirc;tre de 6dB ou 10dB"
+    },
+    "algoNmihdActions": {
+        "SR": [
+            {
+                "code": "SR2",
+                "priorite": 10,
+                "actions": [
+                    {
+                        "type": "LINK",
+                        "mesureSuivante": "PC",
+                        "libelle": "V&eacute;rifier &agrave; la SR, côt&eacute; distribution, jarreti&egrave;res, &eacute;tat des contacts, probl&egrave;mes d'oxydation, mauvaises connectiques et revenir au PC ",
+                        "decision": {
+                            "code": "SR_act1"
+                        }
+                    },
+                    {
+                        "type": "LINK",
+                        "mesureSuivante": "SR",
+                        "libelle": "V&eacute;rifier les points interm&eacute;diaires"
+                    },
+                    {
+                        "type": "LINK",
+                        "mesureSuivante": "PC",
+                        "libelle": "Muter la paire de distribution (att&eacute;nuation similaire) et revenir au PC",
+                        "decision": {
+                            "code": "SR_act2"
+                        }
+                    }
+                ]
+            },
+            {
+                "code": "SR3",
+                "priorite": 20,
+                "actions": [
+                    {
+                        "type": "LINK",
+                        "mesureSuivante": "SR",
+                        "libelle": "V&eacute;rifier les points interm&eacute;diaires"
+                    },
+                    {
+                        "type": "LINK",
+                        "mesureSuivante": "PC",
+                        "libelle": "Muter la paire de distribution (att&eacute;nuation similaire) et revenir au PC",
+                        "decision": {
+                            "code": "SR_act2"
+                        }
+                    }
+                ]
+            },
+            {
+                "code": "SR4",
+                "priorite": 30,
+                "actions": [
+                    {
+                        "type": "TEXT",
+                        "libelle": "Suspicion de fort perturbateur EM, appeler STGP pour tests paires voisines"
+                    }
+                ]
+            },
+            {
+                "code": "SR5",
+                "priorite": 40,
+                "actions": [
+                    {
+                        "type": "LINK",
+                        "libelle": "V&eacute;rifier &agrave; la SR, côt&eacute; distribution, jarreti&egrave;res, &eacute;tat des contacts, probl&egrave;mes d'oxydation, mauvaises connectiques et revenir au PT ",
+                        "mesureSuivante": "PT"
+                    },
+                    {
+                        "type": "LINK",
+                        "mesureSuivante": "SR",
+                        "libelle": "V&eacute;rifier les points interm&eacute;diaires"
+                    }
+                ]
+            },
+            {
+                "code": "SR6",
+                "priorite": 40,
+                "actions": [
+                    {
+                        "type": "LINK",
+                        "libelle": "V&eacute;rifier &agrave; la SR, côt&eacute; distribution, jarreti&egrave;res, &eacute;tat des contacts, probl&egrave;mes d'oxydation, mauvaises connectiques ",
+                        "mesureSuivante": "SR"
+                    },
+                    {
+                        "type": "LINK",
+                        "mesureSuivante": "PC",
+                        "libelle": "R&eacute;aliser mesure au PC"
+                    }
+                ]
+            },
+            {
+                "code": "SR7",
+                "priorite": 50,
+                "actions": [
+                    {
+                        "type": "LINK",
+                        "libelle": "V&eacute;rifier &agrave; la SR, côt&eacute; transport, jarreti&egrave;res, &eacute;tat des contacts, probl&egrave;mes d'oxydation, mauvaises connectiques",
+                        "mesureSuivante": "SR"
+                    },
+                    {
+                        "type": "LINK",
+                        "mesureSuivante": "RE",
+                        "libelle": "R&eacute;aliser mesure au RE"
+                    }
+                ]
+            },
+            {
+                "code": "SR8",
+                "priorite": 60,
+                "actions": [
+                    {
+                        "type": "LINK",
+                        "libelle": "V&eacute;rifier &agrave; la SR, côt&eacute; transport, jarreti&egrave;res, &eacute;tat des contacts, probl&egrave;mes d'oxydation, mauvaises connectiques  ",
+                        "mesureSuivante": "SR"
+                    },
+                    {
+                        "type": "LINK",
+                        "mesureSuivante": "SR",
+                        "libelle": "Muter la paire de transport  (att&eacute;nuation similaire) et revenir &agrave; la SR",
+                        "decision": {
+                            "code": "SR_act6"
+                        }
+                    }
+                ]
+            },
+            {
+                "code": "SR9",
+                "priorite": 70,
+                "actions": [
+                    {
+                        "type": "LINKMESURES",
+                        "libelle": "Suspicion de fort perturbateur EM : appeler STGP pour tests sur paires voisines  "
+                    }
+                ]
+            },
+            {
+                "code": "SR10",
+                "priorite": 80,
+                "actions": [
+                    {
+                        "type": "TEXT",
+                        "libelle": "R&eacute;aliser mesure au PT"
+                    }
+                ]
+            },
+            {
+                "code": "SR11",
+                "priorite": 90,
+                "actions": [
+                    {
+                        "type": "TEXT",
+                        "libelle": "R&eacute;aliser mesure au PT"
+                    }
+                ]
+            },
+            {
+                "code": "SR12",
+                "priorite": 100,
+                "actions": [
+                    {
+                        "type": "LINK",
+                        "mesureSuivante": "SR",
+                        "libelle": "V&eacute;rifier &agrave; la SR, côt&eacute; transport, jarreti&egrave;res, &eacute;tat des contacts, probl&egrave;mes d'oxydation, mauvaises connectiques "
+                    },
+                    {
+                        "type": "LINK",
+                        "mesureSuivante": "SR",
+                        "libelle": "Muter la paire de transport (att&eacute;nuation similaire) et revenir &agrave; la SR",
+                        "decision": {
+                            "code": "SR_act5"
+                        }
+                    }
+                ]
+            },
+            {
+                "code": "SR13",
+                "priorite": 110,
+                "actions": [
+                    {
+                        "type": "LINKMESURES",
+                        "libelle": "Suspicion de fort perturbateur EM : appeler STGP pour tests sur paires voisines "
+                    }
+                ]
+            },
+            {
+                "code": "SR14",
+                "priorite": 120,
+                "actions": [
+                    {
+                        "type": "LINKMESURES",
+                        "libelle": "Suspicion de fort perturbateur EM : appeler STGP pour tests sur paires voisines "
+                    }
+                ]
+            },
+            {
+                "code": "SR15",
+                "priorite": 130,
+                "actions": [
+                    {
+                        "type": "TEXT",
+                        "libelle": "R&eacute;aliser mesure au RE"
+                    }
+                ]
+            },
+            {
+                "code": "SR16",
+                "priorite": 140,
+                "actions": [
+                    {
+                        "type": "TEXT",
+                        "libelle": "R&eacute;aliser mesure au RE"
+                    }
+                ]
+            }
+        ],
+        "RE": [
+            {
+                "code": "RE3",
+                "priorite": 5,
+                "actions": [
+                    {
+                        "type": "TEXT",
+                        "libelle": "Commencer par v&eacute;rifier jarreti&egrave;res et qualifier plots"
+                    },
+                    {
+                        "type": "LINK",
+                        "mesureSuivante": "SR",
+                        "libelle": "Si les probl&egrave;mes ont &eacute;t&eacute; corrig&eacute;s sur plot/jarreti&egrave;res, revenir &agrave; la SR ",
+                        "decision": {
+                            "code": "RE_act4"
+                        }
+                    },
+                    {
+                        "type": "LINK",
+                        "mesureSuivante": "SR",
+                        "libelle": "Si aucun probl&egrave;me sur plot/jarreti&egrave;res, muter la paire de transport (att&eacute;nuation similaire) et revenir &agrave; la SR",
+                        "decision": {
+                            "code": "RE_act3"
+                        }
+                    }
+
+
+                ]
+            },
+            {
+                "code": "RE5",
+                "priorite": 10,
+                "actions": [
+                    {
+                        "type": "LINK",
+                        "mesureSuivante": "PM",
+                        "libelle": "R&eacute;aliser mesure &agrave; la PM"
+                    }
+                ]
+            },
+            {
+                "code": "RE6",
+                "priorite": 20,
+                "actions": [
+                    {
+                        "type": "LINK",
+                        "mesureSuivante": "RE",
+                        "libelle": "V&eacute;rifier plot et jarreti&egrave;res"
+                    }
+                ]
+            },
+            {
+                "code": "RE7",
+                "priorite": 30,
+                "actions": [
+                    {
+                        "type": "LINK",
+                        "mesureSuivante": "PM",
+                        "libelle": "R&eacute;aliser mesure &agrave; la PM"
+                    }
+                ]
+            },
+            {
+                "code": "RE8",
+                "priorite": 40,
+                "actions": [
+                    {
+                        "type": "LINK",
+                        "mesureSuivante": "SR",
+                        "libelle": "R&eacute;aliser mesure &agrave; la SR",
+                        "decision": {
+                            "code": "RE_act4"
+                        }
+                    }
+                ]
+            }
+        ],
+        "PM": [
+            {
+                "code": "PM7",
+                "priorite": 10,
+                "actions": [
+                    {
+                        "type": "TEXT",
+                        "libelle": "En attente de d&eacute;cision"
+                    },
+                    {
+                        "type": "LINK",
+                        "mesureSuivante": "PT",
+                        "libelle": "R&eacute;aliser mesures au PT pour comparatif"
+                    }
+                ]
+            },
+            {
+                "code": "PM8",
+                "priorite": 20,
+                "actions": [
+                    {
+                        "type": "TEXT",
+                        "libelle": "Tester les services, si services NOK, tester la Livebox"
+                    },
+                    {
+                        "type": "LINKMESURES",
+                        "libelle": "Fin intervention"
+                    }
+                ]
+            },
+            {
+                "code": "PM10",
+                "priorite": 30,
+                "actions": [
+                    {
+                        "type": "TEXT",
+                        "libelle": "Tester les services, si services NOK, tester la Livebox"
+                    },
+                    {
+                        "type": "LINKMESURES",
+                        "libelle": "Fin intervention"
+                    }
+                ]
+            },
+            {
+                "code": "PM11",
+                "priorite": 40,
+                "actions": [
+                    {
+                        "type": "LINK",
+                        "mesureSuivante": "PT",
+                        "libelle": "R&eacute;aliser mesure au PT"
+                    }
+                ]
+            },
+            {
+                "code": "PM12",
+                "priorite": 50,
+                "actions": [
+                    {
+                        "type": "LINK",
+                        "mesureSuivante": "PT",
+                        "libelle": "V&eacute;rifier l'&eacute;tat des contacts au PT, probl&egrave;mes d'oxydation, mauvaises connectiques",
+                        "decision": {
+                            "code": "PT_act1"
+                        }
+                    },
+                    {
+                        "type": "LINK",
+                        "mesureSuivante": "PT",
+                        "libelle": "V&eacute;rifier qu'un fort perturbateur EM chez le client n'est pas responsable des dysfonctionnements au PT. Utiliser Easydetect ou un poste de radio ",
+                        "decision": {
+                            "code": "PT_act2"
+                        }
+                    },
+                    {
+                        "type": "LINK",
+                        "mesureSuivante": "PC",
+                        "libelle": "R&eacute;aliser mesures au PC"
+                    }
+                ]
+            },
+            {
+                "code": "PM6",
+                "priorite": 60,
+                "actions": [
+                    {
+                        "type": "LINK",
+                        "mesureSuivante": "PT",
+                        "libelle": "V&eacute;rifier qu'un fort perturbateur EM chez le client n'est pas responsable des dysfonctionnements au PT. Utiliser Easydetect ou un poste de radio ",
+                        "decision": {
+                            "code": "PT_act2"
+                        }
+                    },
+                    {
+                        "type": "LINK",
+                        "mesureSuivante": "PC",
+                        "libelle": "R&eacute;aliser mesure au PC"
+                    }
+                ]
+            },
+            {
+                "code": "PM13",
+                "priorite": 70,
+                "actions": [
+                    {
+                        "type": "LINK",
+                        "mesureSuivante": "PC",
+                        "libelle": "R&eacute;aliser mesure au PC"
+                    }
+                ]
+            },
+            {
+                "code": "PM14",
+                "priorite": 80,
+                "actions": [
+                    {
+                        "type": "LINK",
+                        "mesureSuivante": "PM",
+                        "libelle": "Agir dans la desserte interne, obtenir le même &eacute;tat &agrave; la PM qu’au PT"
+                    }
+                ]
+            },
+            {
+                "code": "PM15",
+                "priorite": 90,
+                "actions": [
+                    {
+                        "type": "LINK",
+                        "mesureSuivante": "PM",
+                        "libelle": "Actionner les interrupteurs pour mettre en &eacute;vidence une sensibilit&eacute; de la desserte interne"
+                    },
+                    {
+                        "type": "LINK",
+                        "mesureSuivante": "PT",
+                        "libelle": "Dans le cas d'un immeuble, en compl&eacute;ment, r&eacute;aliser mesures au PT en actionnant interrupteurs/ascenseurs pour mettre en &eacute;vidence une sensibilit&eacute; des parties communes"
+                    }
+                ]
+            }
+        ],
+        "PT": [
+            {
+                "code": "PT6",
+                "priorite": 10,
+                "actions": [
+                    {
+                        "type": "LINK",
+                        "mesureSuivante": "PM",
+                        "libelle": "R&eacute;aliser mesure &agrave; la PM"
+                    }
+                ]
+            },
+            {
+                "code": "PT7",
+                "priorite": 20,
+                "actions": [
+                    {
+                        "type": "TEXT",
+                        "libelle": "Tester les services, si services NOK, tester la Livebox"
+                    },
+                    {
+                        "type": "LINKMESURES",
+                        "libelle": "Fin intervention"
+                    }
+                ]
+            },
+            {
+                "code": "PT8",
+                "priorite": 30,
+                "actions": [
+                    {
+                        "type": "LINK",
+                        "mesureSuivante": "PM",
+                        "libelle": "Retourner &agrave; la PM, et actionner les interrupteurs pour mettre en &eacute;vidence une sensibilit&eacute; de la desserte interne"
+                    },
+                    {
+                        "type": "LINK",
+                        "mesureSuivante": "PT",
+                        "libelle": "Dans le cas d'un immeuble, en compl&eacute;ment, r&eacute;aliser mesures au PT en actionnant interrupteurs/ascenseurs pour mettre en &eacute;vidence une sensibilit&eacute; des parties communes"
+                    }
+                ]
+            },
+            {
+                "code": "PT4",
+                "priorite": 40,
+                "actions": [
+                    {
+                        "type": "TEXT",
+                        "libelle": "Tester les services, si services NOK, tester la Livebox"
+                    },
+                    {
+                        "type": "LINKMESURES",
+                        "libelle": "Fin intervention"
+                    }
+                ]
+            },
+            {
+                "code": "PT9",
+                "priorite": 50,
+                "actions": [
+                    {
+                        "type": "TEXT",
+                        "libelle": "V&eacute;rifier au PT, côt&eacute; installation client, l'&eacute;tat des contacts, probl&egrave;mes d'oxydation, mauvaises connectiques"
+                    },
+                    {
+                        "type": "LINK",
+                        "mesureSuivante": "PM",
+                        "libelle": "Agir dans la desserte interne, obtenir le même &eacute;tat &agrave; la PM qu’au PT (+ long texte)"
+                    }
+                ]
+            },
+            {
+                "code": "PT10",
+                "priorite": 60,
+                "actions": [
+                    {
+                        "type": "LINK",
+                        "mesureSuivante": "PT",
+                        "libelle": "V&eacute;rifier au PT, côt&eacute; branchement, l'&eacute;tat des contacts, probl&egrave;mes d'oxydation, mauvaises connectiques"
+                    },
+                    {
+                        "type": "LINK",
+                        "mesureSuivante": "PT",
+                        "libelle": "V&eacute;rifier qu'un fort perturbateur EM chez le client n'est pas responsable des dysfonctionnements au PT. Utiliser Easydetect ou un poste de radio"
+                    },
+                    {
+                        "type": "LINK",
+                        "mesureSuivante": "PT",
+                        "libelle": "V&eacute;rifier au PC, côt&eacute; branchement, l'&eacute;tat des contacts, probl&egrave;mes d'oxydation, mauvaises connectiques  et revenir au PT"
+                    },
+                    {
+                        "type": "LINK",
+                        "mesureSuivante": "PC",
+                        "libelle": "V&eacute;rifier les points interm&eacute;diaires"
+                    },
+                    {
+                        "type": "LINK",
+                        "mesureSuivante": "PT",
+                        "libelle": "Changer le câble de branchement et revenir au PT"
+                    }
+                ]
+            },
+            {
+                "code": "PT11",
+                "priorite": 70,
+                "actions": [
+                    {
+                        "type": "LINK",
+                        "mesureSuivante": "PT",
+                        "libelle": "V&eacute;rifier au PT, côt&eacute; branchement, l'&eacute;tat des contacts, probl&egrave;mes d'oxydation, mauvaises connectiques"
+                    },
+                    {
+                        "type": "LINK",
+                        "mesureSuivante": "PT",
+                        "libelle": "V&eacute;rifier qu'un fort perturbateur EM chez le client n'est pas responsable des dysfonctionnements au PT. Utiliser Easydetect ou un poste de radio"
+                    },
+                    {
+                        "type": "LINK",
+                        "mesureSuivante": "PC",
+                        "libelle": "R&eacute;aliser mesures au PC"
+                    }
+                ]
+            },
+            {
+                "code": "PT12",
+                "priorite": 80,
+                "actions": [
+                    {
+                        "type": "LINK",
+                        "mesureSuivante": "PT",
+                        "libelle": "V&eacute;rifier au PT, côt&eacute; branchement, l'&eacute;tat des contacts, probl&egrave;mes d'oxydation, mauvaises connectiques"
+                    },
+                    {
+                        "type": "LINK",
+                        "mesureSuivante": "PT",
+                        "libelle": "V&eacute;rifier qu'un fort perturbateur EM chez le client n'est pas responsable des dysfonctionnements au PT. Utiliser Easydetect ou un poste de radio"
+                    },
+                    {
+                        "type": "LINK",
+                        "mesureSuivante": "SR",
+                        "libelle": "R&eacute;aliser mesures au SR"
+                    }
+                ]
+            }
+        ],
+        "PC": [
+            {
+                "code": "PC3",
+                "priorite": 10,
+                "actions": [
+                    {
+                        "type": "LINK",
+                        "mesureSuivante": "PT",
+                        "libelle": "R&eacute;aliser mesure au PT"
+                    }
+                ]
+            },
+            {
+                "code": "PC4",
+                "priorite": 20,
+                "actions": [
+                    {
+                        "type": "LINK",
+                        "mesureSuivante": "PT",
+                        "libelle": "R&eacute;aliser mesure au PT"
+                    }
+                ]
+            },
+            {
+                "code": "PC5",
+                "priorite": 30,
+                "actions": [
+                    {
+                        "type": "LINK",
+                        "mesureSuivante": "PM",
+                        "libelle": "R&eacute;aliser mesure &agrave; la PM"
+                    }
+                ]
+            },
+            {
+                "code": "PC6",
+                "priorite": 40,
+                "actions": [
+                    {
+                        "type": "TEXT",
+                        "libelle": "V&eacute;rifier au PC, côt&eacute; branchement, '&eacute;tat des contacts, probl&egrave;mes d'oxydation, mauvaises connectiques "
+                    },
+                    {
+                        "type": "TEXT",
+                        "libelle": "V&eacute;rifier les points interm&eacute;diaires"
+                    },
+                    {
+                        "type": "LINKMESURES",
+                        "libelle": "Fin intervention"
+                    }
+                ]
+            },
+            {
+                "code": "PC7",
+                "priorite": 50,
+                "actions": [
+                    {
+                        "type": "LINK",
+                        "mesureSuivante": "PC",
+                        "libelle": "V&eacute;rifier au PC, côt&eacute; distribution, l'&eacute;tat des contacts, probl&egrave;mes d'oxydation, mauvaises connectiques"
+                    },
+                    {
+                        "type": "TEXT",
+                        "libelle": "R&eacute;aliser mesure &agrave; la SR"
+                    }
+                ]
+            },
+            {
+                "code": "PC8",
+                "priorite": 60,
+                "actions": [
+                    {
+                        "type": "LINK",
+                        "mesureSuivante": "PT",
+                        "libelle": "V&eacute;rifier au PC, côt&eacute; branchement, l'&eacute;tat des contacts, probl&egrave;mes d'oxydation, mauvaises connectiques et revenir au PT"
+                    },
+                    {
+                        "type": "LINK",
+                        "mesureSuivante": "PC",
+                        "libelle": "V&eacute;rifier les points interm&eacute;diaires"
+                    },
+                    {
+                        "type": "LINK",
+                        "mesureSuivante": "PT",
+                        "libelle": "Changer le câble de branchement et revenir au PT"
+                    }
+                ]
+            },
+            {
+                "code": "PC9",
+                "priorite": 70,
+                "actions": [
+                    {
+                        "type": "LINKMESURES",
+                        "libelle": "Suspicion de fort perturbateur EM : appel STGP pour tests sur paires voisines"
+                    }
+                ]
+            },
+            {
+                "code": "PC10",
+                "priorite": 80,
+                "actions": [
+                    {
+                        "type": "TEXT",
+                        "libelle": "R&eacute;aliser mesure au PT"
+                    }
+                ]
+            },
+            {
+                "code": "PC11",
+                "priorite": 90,
+                "actions": [
+                    {
+                        "type": "LINK",
+                        "mesureSuivante": "PT",
+                        "libelle": "R&eacute;aliser mesure au PT"
+                    }
+                ]
+            },
+            {
+                "code": "PC12",
+                "priorite": 100,
+                "actions": [
+                    {
+                        "type": "LINK",
+                        "mesureSuivante": "SR",
+                        "libelle": "V&eacute;rifier les points interm&eacute;diaires"
+                    },
+                    {
+                        "type": "LINK",
+                        "mesureSuivante": "PC",
+                        "libelle": "Muter la paire de distribution et revenir au PC",
+                        "decision": {
+                            "code": "SR_act2"
+                        }
+                    }
+                ]
+            },
+            {
+                "code": "PC13",
+                "priorite": 110,
+                "actions": [
+                    {
+                        "type": "LINK",
+                        "mesureSuivante": "PC",
+                        "libelle": "V&eacute;rifier au PC, côt&eacute; distribution, l'&eacute;tat des contacts, probl&egrave;mes d'oxydation, mauvaises connectiques"
+                    },
+                    {
+                        "type": "LINK",
+                        "mesureSuivante": "SR",
+                        "libelle": "V&eacute;rifier les points interm&eacute;diaires"
+                    },
+                    {
+                        "type": "LINK",
+                        "mesureSuivante": "SR",
+                        "libelle": "V&eacute;rifier &agrave; la SR, côt&eacute; distribution, jarreti&egrave;res, &eacute;tat des contacts, probl&egrave;mes d'oxydation, mauvaises connectiques",
+                        "decision": {
+                            "code": "SR_act1"
+                        }
+                    },
+                    {
+                        "type": "LINK",
+                        "mesureSuivante": "PC",
+                        "libelle": "Muter la paire de distribution (att&eacute;nuation similaire) et revenir au PC",
+                        "decision": {
+                            "code": "SR_act2"
+                        }
+                    }
+                ]
+            },
+            {
+                "code": "PC14",
+                "priorite": 120,
+                "actions": [
+                    {
+                        "type": "TEXT",
+                        "libelle": "R&eacute;aliser mesure au RE"
+                    }
+                ]
+            }
+        ]
+    }
+}

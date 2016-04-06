@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html ng-app="app">
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1"/>
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no"/>
+    <title ng-bind="title"></title>
+    <style>
+        /* This helps the ng-show/ng-hide animations start at the right place. */
+        /* Since Angular has this but needs to load, this gives us the class early. */
+        .ng-hide {
+            display: none !important;
+        }
+    </style>
+    <link rel="icon" href="images/favicon.ico"/>
+
+    <!-- build:css styles/lib.css -->
+    <!-- bower:css -->
+    <link rel="stylesheet" href="/bower_components/font-awesome/css/font-awesome.css" />
+    <link rel="stylesheet" href="/bower_components/toastr/toastr.css" />
+    <link rel="stylesheet" href="/bower_components/angular-busy/dist/angular-busy.css" />
+    <!-- endbower -->
+    <!-- endbuild -->
+
+    <!-- build:css styles/app.css-->
+    <!-- inject:css -->
+    <link rel="stylesheet" href="/.tmp/styles.css">
+    <!-- endinject -->
+    <!-- endbuild -->
+
+    <!-- US 404 - Gstat  -->
+    <script type="text/javascript">
+        //<![CDATA[
+        //-- GStat Tag / La lib ne doit pas ï¿½tre copiee en local (refresh auto toute les semaines)
+        var gs_d = new Date, DoW = gs_d.getDay();
+        gs_d.setDate(gs_d.getDate() - (DoW + 6) % 7 + 3);
+        var ms = gs_d.valueOf();
+        gs_d.setMonth(0);
+        gs_d.setDate(4);
+        var gs_r = (Math.round((ms - gs_d.valueOf()) / 6048E5) + 1) * gs_d.getFullYear();
+        var gs_p = (("https:" == document.location.protocol) ? "https://" : "http://");
+        document.write(unescape("%3Cscript src='" + gs_p + "s.gstat.orange.fr/lib/gs.js?" + gs_r + "' type='text/javascript'%3E%3C/script%3E"));
+        //]]>
+    </script>
+</head>
+<body>
+<div ui-view></div>
+
+<!-- build:js js/lib.js -->
+<!-- bower:js -->
+<script src="/bower_components/jquery/dist/jquery.js"></script>
+<script src="/bower_components/angular/angular.js"></script>
+<script src="/bower_components/angular-sanitize/angular-sanitize.js"></script>
+<script src="/bower_components/moment/moment.js"></script>
+<script src="/bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+<script src="/bower_components/toastr/toastr.js"></script>
+<script src="/bower_components/angular-animate/angular-animate.js"></script>
+<script src="/bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+<script src="/bower_components/localforage/dist/localforage.js"></script>
+<script src="/bower_components/angular-localforage/dist/angular-localForage.js"></script>
+<script src="/bower_components/angular-busy/dist/angular-busy.js"></script>
+<script src="/bower_components/angular-resource/angular-resource.js"></script>
+<script src="/bower_components/angular-touch/angular-touch.js"></script>
+<!-- endbower -->
+<!-- endbuild -->
+
+<!-- build:js js/app.js-->
+<!-- inject:js -->
+<script src="/src/client/app/_targetJS/app/app.module.js"></script>
+<script src="/src/client/app/_targetJS/app/blocks/exception/exception.module.js"></script>
+<script src="/src/client/app/_targetJS/app/blocks/logger/logger.module.js"></script>
+<script src="/src/client/app/_targetJS/app/blocks/router/router-helper.module.js"></script>
+<script src="/src/client/app/_targetJS/app/core/core.module.js"></script>
+<script src="/src/client/app/_targetJS/app/dashboard/dashboard.module.js"></script>
+<script src="/src/client/app/_targetJS/app/dashboard/thecomponent/thecomponent.module.js"></script>
+<script src="/src/client/app/_targetJS/app/interview/interview.module.js"></script>
+<script src="/src/client/app/_targetJS/app/layout/layout.module.js"></script>
+<script src="/src/client/app/_targetJS/app/widgets/widgets.module.js"></script>
+<script src="/src/client/app/_targetJS/app/blocks/exception/exception-handler.provider.js"></script>
+<script src="/src/client/app/_targetJS/app/blocks/exception/exception.js"></script>
+<script src="/src/client/app/_targetJS/app/blocks/logger/logger.js"></script>
+<script src="/src/client/app/_targetJS/app/blocks/router/router-helper.service.js"></script>
+<script src="/src/client/app/_targetJS/app/core/config.js"></script>
+<script src="/src/client/app/_targetJS/app/core/constants.js"></script>
+<script src="/src/client/app/_targetJS/app/core/core.route.js"></script>
+<script src="/src/client/app/_targetJS/app/core/dataservice.js"></script>
+<script src="/src/client/app/_targetJS/app/core/inject.js"></script>
+<script src="/src/client/app/_targetJS/app/dashboard/dashboard.controller.js"></script>
+<script src="/src/client/app/_targetJS/app/dashboard/dashboard.route.js"></script>
+<script src="/src/client/app/_targetJS/app/dashboard/thecomponent/thecomponent.controller.js"></script>
+<script src="/src/client/app/_targetJS/app/dashboard/thecomponent/thecomponent.js"></script>
+<script src="/src/client/app/_targetJS/app/interview/interview.controller.js"></script>
+<script src="/src/client/app/_targetJS/app/interview/interview.route.js"></script>
+<script src="/src/client/app/_targetJS/app/interview/Question.js"></script>
+<script src="/src/client/app/_targetJS/app/layout/ht-sidebar.directive.js"></script>
+<script src="/src/client/app/_targetJS/app/layout/ht-top-nav.directive.js"></script>
+<script src="/src/client/app/_targetJS/app/layout/shell.controller.js"></script>
+<script src="/src/client/app/_targetJS/app/layout/sidebar.controller.js"></script>
+<script src="/src/client/app/_targetJS/app/widgets/ht-widget-header.directive.js"></script>
+<!-- endinject -->
+
+<!-- inject:templates:js -->
+<!-- endinject -->
+
+<!-- endbuild -->
+
+<!-- US 404 - Gstat  -->
+<footer>
+    <script type="text/javascript">
+        //<![CDATA[
+        if (typeof _gstat != "undefined") _gstat.audience();
+        //]]>
+    </script>
+</footer>
+</body>
+</html>

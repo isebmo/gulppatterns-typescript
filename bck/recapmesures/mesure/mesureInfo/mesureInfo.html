@@ -1,0 +1,87 @@
+<section>
+    <div class="modal-header">
+        <h2 class="modal-title">
+            Helios ne permet pas &agrave; ce jour la qualification automatique de plot
+        </h2>
+    </div>
+
+    <div class="modal-body">
+        <table ng-if="modalInfo.param.isADSL" class="table recapmesures table-bordered table-condensed">
+            <thead style="background:#f90;">
+            <tr>
+                <th colspan="3"></th>
+                <th colspan="2">D&eacute;bit max atteignable</th>
+            </tr>
+            <tr>
+                <th rowspan="2">Sens</th>
+                <th>Marge au bruit</th>
+                <th>Att&eacute;nuation</th>
+                <th>d&eacute;bit inf. ou &eacute;gal &agrave; 8 Mbit/s</th>
+                <th>d&eacute;bit sup. &agrave; 8 Mbit/s</th>
+            </tr>
+            </thead>
+            <tbody>
+
+            <tr>
+                <td>Descendant</td>
+                <td>> ou = &agrave; 6 dB</td>
+                <td>< ou = &agrave; 5 dB</td>
+                <td>> ou = 7616 kbit/s</td>
+                <td>> ou = 15 232 kbit/s </td>
+            </tr>
+            <tr>
+                <td>Remontant</td>
+                <td>> ou = &agrave; 6 dB</td>
+                <td>< ou = &agrave; 5 dB</td>
+                <td>> ou = 512 kbit/s</td>
+                <td>> ou = 512 kbit/s </td>
+            </tr>
+            <tr>
+                <td>SNR</td>
+                <td colspan="4">> &agrave; 48 dB dans les porteuses aux environs de 150</td>
+            </tr>
+
+            </tbody>
+        </table>
+        <table ng-if="!modalInfo.param.isADSL" class="table recapmesures table-bordered table-condensed">
+            <thead style="background:#f90;">
+            <tr>
+                <th colspan="3"></th>
+                <th colspan="2">D&eacute;bit max atteignable</th>
+            </tr>
+            <tr>
+                <th rowspan="2">Sens</th>
+                <th>Marge au bruit</th>
+                <th>Att&eacute;nuation</th>
+                <th>Profil 8b</th>
+                <th>Profil 17a</th>
+            </tr>
+            </thead>
+            <tbody>
+
+            <tr>
+                <td>Descendant</td>
+                <td>> &agrave; 11 dB</td>
+                <td>< &agrave; 5 dB</td>
+                <td>> ou = 85 Mbit/s</td>
+                <td>> ou = 125 Mbit/s </td>
+            </tr>
+            <tr>
+                <td>Remontant</td>
+                <td>> &agrave; 5 dB</td>
+                <td>< &agrave; 5 dB</td>
+                <td>> ou = 10 Mbit/s</td>
+                <td>> ou = 20 Mbit/s </td>
+            </tr>
+
+            </tbody>
+        </table>
+    </div>
+
+    <div class="modal-footer center">
+        <button class="btn btn-primary" ng-click="modalInfo.fn.closePopIn()">
+            OK
+        </button>
+    </div>
+
+</section>

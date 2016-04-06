@@ -1,0 +1,29 @@
+<section>
+    <header class="row">
+        <div class="col-md-6">
+            <h3>Historique des interventions</h3>
+        </div>
+    </header>
+
+    <div ng-hide="vm.param.interventions.length > 0">
+        <span>aucune intervention historis&eacute;e</span>
+    </div>
+
+    <table ng-hide="vm.param.interventions.length === 0" class="table table-striped va-middle">
+        <thead>
+            <tr>
+                <th class="header-list-table">ND</th>
+                <th class="header-list-table">Date</th>
+                <th class="header-list-table">Sauvegarde</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="intervention in vm.param.interventions" data-ng-click="vm.fn.selectIntervention(this.intervention)">
+                <td>{{ this.intervention.nd }}</td>
+                <td>{{ this.intervention.date | date : "dd/MM/yyyy HH:mm" }}</td>
+                <td>{{ this.intervention.statut }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+</section>

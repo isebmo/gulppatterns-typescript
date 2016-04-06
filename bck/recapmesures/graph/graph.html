@@ -1,0 +1,25 @@
+<section class="graph">
+    <div ng-click="vm.back()" style="height: 0; " class="row">
+        <a style="cursor: pointer;margin: 20px 55px;top: 0;position: absolute;right: 0;"><i
+                class="fa fa-2x fa-times-circle"></i></a>
+    </div>
+
+    <h3 class="text-center">{{vm.param.title}}</h3>
+    <h5 class="text-center">{{vm.param.subtitle}}</h5>
+    <graph update-time="vm.updateTime" title="vm.param.title" subtitle="vm.param.subtitle"
+           graphic-type="vm.graphicType"></graph>
+    <hr/>
+    <form class="form-horizontal" name="graphForm">
+        <div style="margin-top: 20px;" class="form-group">
+            <label class="col-sm-5 control-label" for="selectGraphType">Type de graphe: </label>
+            <div class="col-sm-2">
+                <select id="selectGraphType" name="selectGraphType" ng-model="vm.graphicType" class="form-control">
+                    <option value="SNR">SNR</option>
+                    <option value="HLOG">HLOG</option>
+                    <option value="QLN">QLN</option>
+                    <option value="BITS">BITS</option>
+                </select>
+            </div>
+        </div>
+    </form>
+</section>

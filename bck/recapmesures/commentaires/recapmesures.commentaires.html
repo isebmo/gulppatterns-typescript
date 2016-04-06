@@ -1,0 +1,13 @@
+<section>
+    <div class="modal-header">
+        <h2 class="modal-title">Ajouter un commentaire</h2>
+    </div>
+    <div class="modal-body">
+        <textarea class="form-control custom-control" rows="4"
+                  data-ng-model="vm.data.commentaire" title="Zone de saisie du commentaire"></textarea>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" type="button" ng-click="vm.ok()">OK</button>
+        <button class="btn btn-warning" type="button" ng-click="vm.cancel()">Annuler</button>
+    </div>
+</section>

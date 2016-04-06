@@ -1,0 +1,8 @@
+<section>
+    <ul class="nav nav-tabs nav-justified">
+       <!-- <li role="presentation" class="active"><a href="#">Home</a></li>-->
+        <li ng-class="{active: vm.param.state.includes('home.helios.historique.interventions')}" role="presentation"><a ui-sref="home.helios.historique.interventions">Interventions</a></li>
+        <li ng-class="{active: vm.param.state.includes('home.helios.historique.nd')}" role="presentation"><a ui-sref="home.helios.historique.nd">Interventions du ND</a></li>
+    </ul>
+    <div ui-view></div>
+</section>

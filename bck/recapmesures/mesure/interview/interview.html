@@ -1,0 +1,17 @@
+<section>
+    <div class="modal-header">
+        <h2 class="modal-title">
+            Interview
+        </h2>
+    </div>
+
+    <div class="modal-body">
+        <span ng-bind-html="::vm.param.interviewModalParam.question.intitule"></span>
+    </div>
+
+    <div class="modal-footer center">
+        <button ng-repeat="choix in vm.param.interviewModalParam.question.choix track by choix.code" class="btn btn-primary" ng-click="vm.fn.closePopIn(choix)">
+            <span ng-bind-html="::choix.libelle"></span>
+        </button>
+    </div>
+</section>

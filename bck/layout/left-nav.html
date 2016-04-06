@@ -1,0 +1,17 @@
+<nav>
+    <ul class="nav nav-pills nav-stacked col-sm-2 col-md-2">
+        <!-- Accueil d'une intervention -->
+        <li ng-class="{active: vm.param.state.includes('home.helios.intervention')}">
+            <a class="" data-ui-sref="home.helios.intervention"><i class="fa fa-tasks ga-lg"></i>&nbsp;Mission</a>
+        </li>
+
+        <!-- liste des mesures d'une intervention -->
+        <li ng-class="{active: vm.param.state.includes('home.helios.mesures.recapmesures')}" data-ng-if="vm.param.intervention">
+            <a data-ui-sref="home.helios.mesures.recapmesures"><i class="fa fa-calendar fa-lg"></i>&nbsp;Mesures</a>
+        </li>
+
+        <li ng-class="{active: vm.param.state.includes('home.helios.historique')}">
+            <a ui-sref="home.helios.historique.interventions"><i class="fa fa-clock-o fa-lg"></i>&nbsp;Historique</a>
+        </li>
+    </ul>
+</nav>

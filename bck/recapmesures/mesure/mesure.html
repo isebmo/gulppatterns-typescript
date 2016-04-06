@@ -1,0 +1,139 @@
+<div class="row" cg-busy="vm.promiseSpinner">
+
+    <!-- Colonne de gauche : tableau des mesures -->
+    <div class="col-sm-7">
+
+        <table class="table table-condensed table-striped table-striped-first-line table-bordered">
+            <tbody>
+            <tr>
+                <th class="header-list-table">&nbsp;</th>
+                <th class="header-list-table text-center"><i class="fa fa-arrow-down fa-lg"></i></th>
+                <th class="header-list-table text-center"><i class="fa fa-arrow-up fa-lg"></i></th>
+            </tr>
+            <tr>
+                <th>D&eacute;bit r&eacute;el (Mbits/s)</th>
+                <td>{{vm.mesure.desc.debReel}}</td>
+                <td>{{vm.mesure.mont.debReel}}</td>
+            </tr>
+            <tr>
+                <th>D&eacute;bit att. actuel (Mbits/s)</th>
+                <td>{{vm.mesure.desc.debAttActu}}</td>
+                <td>{{vm.mesure.mont.debAttActu}}</td>
+            </tr>
+            <tr>
+                <th>D&eacute;bit att. min/max (Mbits/s)</th>
+                <td>{{vm.mesure.desc.debAttMinMax.min}} / {{vm.mesure.desc.debAttMinMax.max}}</td>
+                <td>{{vm.mesure.mont.debAttMinMax.min}} / {{vm.mesure.mont.debAttMinMax.max}}</td>
+            </tr>
+            <tr>
+                <th>Marge de bruit actuelle (dB)</th>
+                <td>{{vm.mesure.desc.margeBruitActu}}</td>
+                <td>{{vm.mesure.mont.margeBruitActu}}</td>
+            </tr>
+            <tr>
+                <th>Marge de bruit min/max (dB)</th>
+                <td>{{vm.mesure.desc.margeBruitMinMax.min}} / {{vm.mesure.desc.margeBruitMinMax.max}}</td>
+                <td>{{vm.mesure.mont.margeBruitMinMax.min}} / {{vm.mesure.mont.margeBruitMinMax.max}}</td>
+            </tr>
+            <tr>
+                <th>SES</th>
+                <td>{{vm.mesure.desc.SES}}</td>
+                <td>{{vm.mesure.mont.SES}}</td>
+            </tr>
+            <tr>
+                <th>CRC</th>
+                <td>{{vm.mesure.desc.CRC}}</td>
+                <td>{{vm.mesure.mont.CRC}}</td>
+            </tr>
+            <tr>
+                <th>FEC</th>
+                <td>{{vm.mesure.desc.FEC}}</td>
+                <td>{{vm.mesure.mont.FEC}}</td>
+            </tr>
+            <tr>
+                <th>att&eacute;nuation</th>
+                <td>{{vm.mesure.desc.attenu}}</td>
+                <td>{{vm.mesure.mont.attenu}}</td>
+            </tr>
+            <tr>
+                <th>D&eacute;synchronisations</th>
+                <td>{{!vm.mesure.isSynchronized | oui_non}}</td>
+                <td></td>
+            </tr>
+            </tbody>
+        </table>
+        <!-- Boutons d'actions -->
+        <div class="btn-toolbar toolbar-condensed" data-ng-if="!vm.isMesure(vm.etats.mesure.IS_DETAIL)">
+            <button data-ng-show="vm.isMesure(vm.etats.mesure.MESURE_FINI)" data-ng-click="vm.nouvelleMesure()"
+                    class="btn btn-primary btn-lg">Nouvelle mesure
+            </button>
+            <button data-ng-hide="!vm.isMesure(vm.etats.mesure.MESURE_EN_COURS) || vm.isMesure(vm.etats.mesure.MESURE_FINI)"
+                    data-ng-click="vm.arreter()"
+                    class="btn btn-primary btn-lg">Arr&ecirc;ter ({{vm.mesure.duree}})
+            </button>
+            <button ng-show="vm.canStartMesure()" ng-click="vm.demarrer()" class="btn btn-primary btn-lg">D&eacute;marrer
+            </button>
+            <button ng-show="vm.canStartGraph()" ng-click="vm.courbe()"
+                    class="btn btn-primary btn-lg">Courbe
+            </button>
+            <button data-ng-hide="!vm.isMesure(vm.etats.mesure.MESURE_EN_COURS)" data-ng-click="vm.fn.reinit()"
+                    class="btn btn-primary btn-lg">R&eacute;initialiser les valeurs
+            </button>
+        </div>
+
+        <div class="btn-toolbar toolbar-condensed" data-ng-if="vm.isMesure(vm.etats.mesure.IS_DETAIL)">
+
+            <button ui-sref="home.helios.mesures.recapmesures" class="btn btn-primary btn-lg">Retour</button>
+            <button data-ng-click="vm.nouvelleMesure()"
+                    class="btn btn-primary btn-lg">Nouvelle mesure
+            </button>
+            <button data-ng-show="vm.isDeletable()" data-ng-click="vm.deleteMesure()"
+                    class="btn btn-primary btn-lg">Supprimer
+            </button>
+        </div>
+    </div>
+
+    <!-- Colonne de droite : analyse des mesures -->
+    <div class="col-sm-4 col-sm-offset-1">
+        <div class="alert alert-info" role="alert" ng-show="vm.param.showMsg && (vm.isMesure(vm.etats.mesure.MESURE_NON_DEMARRE) || vm.isMesure(vm.etats.mesure.MESURE_EN_COURS))">
+            <button ng-click="vm.param.showMsg = !vm.param.showMsg" type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <i class="fa fa-info-circle fa-1x"></i>
+            <strong ng-bind="::vm.param.priseDeMesureParam.infoMessage"></strong>
+        </div>
+        <div class="row">
+            <h3>D&eacute;cision</h3>
+            <div class="col-md-2" data-ng-if="vm.mesure.decision" >
+                <a href="javascript:void(0)" ng-click="vm.param.priseDeMesureParam.isstrResultsDiagXDSLCollapsed = !vm.param.priseDeMesureParam.isstrResultsDiagXDSLCollapsed">
+                    <smiley type="vm.mesure.decision" size="5x"></smiley>
+                </a>
+            </div>
+            <div class="col-md-10" uib-collapse="vm.param.priseDeMesureParam.isstrResultsDiagXDSLCollapsed">
+                <ul class="list-group">
+                    <li class="list-group-item" ng-repeat="decision in vm.mesure.strResultsDiagXDSL track by $index">
+                        {{decision}}
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="row">
+            <h3>Actions &agrave; suivre (par ordre de priorit&eacute;)</h3>
+            <table class="table table-condensed table-striped table-striped-first-line table-bordered">
+                <tbody>
+                <tr data-ng-repeat="action in vm.mesure.actions track by $index">
+                    <td class="text-center">{{::$index+1}}</td>
+                    <td ng-bind-html="::action.libelle"></td>
+                    <td class="text-center" ng-show="action.type === 'LINK'">
+                        <a ng-click="vm.fn.makeChoice(action)" >
+                        <i class="fa fa-play-circle fa-2x text-primary"></i></a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+
+<heliosinterview mesure-type="vm.param.typeMesure"></heliosinterview>
+<mesure-info type-mesure="vm.param.typeMesure"></mesure-info>

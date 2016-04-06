@@ -1,0 +1,68 @@
+<section class="row" cg-busy="vm.promiseSpinner">
+    <!-- Première ligne -->
+    <div class="row">
+        <form name="interventionForm">
+            <fieldset data-ng-disabled="!vm.param.actionEnregistrement">
+                <div class="col-sm-6">
+                    <div class="form-group" data-ng-class="{'has-error': interventionForm.ndClient.$invalid && interventionForm.ndClient.$dirty}">
+                        <label class="form-label" for="ndClient">ND client</label>
+                        <input type="text" class="form-control ndInput" data-ng-disabled="!vm.fn.isNdAlterable()" id="ndClient" name="ndClient" maxlength="10" data-ng-model="vm.param.currentIntervention.nd" data-ng-pattern="/^[0-9]{10}$/" ng-required="true">
+                        <span class="help-block" data-ng-if="interventionForm.ndClient.$dirty && interventionForm.ndClient.$invalid">Le ND client doit 	&ecirc;tre un code num&eacute;rique &agrave; 10 chiffres</span>
+                    </div>
+                    <fieldset data-ng-disabled="!vm.fn.isFormExceptNdAlterable()">
+                        <div class="form-group">
+                            <label class="form-label">Profil client</label>
+                            <div class="radio" data-ng-repeat="profil in vm.param.param.offre.profils">
+                                <label>
+                                    <input type="radio" data-ng-value="profil.code" data-ng-change="vm.fn.changeProfil(profil)" data-ng-model="vm.param.currentIntervention.codeProfilCourant" ng-required="true">
+                                    <span ng-bind-html="::vm.fn.formatDescription(profil.descriptions)"></span>
+                                </label>
+                            </div>
+                            <span ng-bind-html="::vm.param.param.offre.commentaire"></span>
+                        </div>
+                    </fieldset>
+                </div>
+
+                <fieldset class="col-sm-6" data-ng-disabled="!vm.fn.isFormExceptNdAlterable()">
+                    <div class="form-group">
+                        <label class="form-label">Dysfonctionnements</label>
+
+                        <h5>Suggestions</h5>
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" data-ng-model="vm.param.currentIntervention.dysfonctionnements.koJamais">
+                                <strong class="text-danger">Synchro KO</strong>&nbsp;: nouveau client qui n&apos;a jamais fonctionn&eacute;
+                            </label>
+                        </div>
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" data-ng-model="vm.param.currentIntervention.dysfonctionnements.koDeja">
+                                <strong class="text-danger">Synchro KO</strong>&nbsp;: le client a d&eacute;j&agrave; fonctionn&eacute;
+                            </label>
+                        </div>
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" data-ng-model="vm.param.currentIntervention.dysfonctionnements.okAutre">
+                                <strong class="text-success">Synchro OK</strong>&nbsp;: autres dysfonctionnements
+                            </label>
+                        </div>
+
+                        <label class="form-label" for="autre">Autres</label>
+                        <textarea id="autre" class="form-control" rows="3" data-ng-model="vm.param.currentIntervention.dysfonctionnements.strAutre"></textarea>
+                    </div>
+                </fieldset>
+
+            </fieldset>
+        </form>
+    </div>
+
+    <!-- Deuxième ligne -->
+    <div class="row">
+        <div>
+            <button class="btn btn-primary btn-lg" data-ng-click="vm.fn.validateIntervention()" data-ng-hide="interventionForm.$invalid || !vm.param.actionEnregistrement">Enregistrer</button>
+            <button class="btn btn-primary btn-lg" data-ng-click="vm.fn.cancelModification()" data-ng-hide="!vm.param.actionEnregistrement">Annuler</button>
+            <button class="btn btn-primary btn-lg" data-ng-hide="vm.param.actionEnregistrement || !vm.fn.isFormAlterable()" data-ng-click="vm.fn.modifyIntervention()">Modifier l&apos;intervention</button>
+            <button class="btn btn-primary btn-lg" data-ng-click="vm.fn.createIntervention()">Nouvelle intervention</button>
+        </div>
+    </div>
+</section>

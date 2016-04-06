@@ -1,0 +1,51 @@
+<div class="constitutionNav" data-ng-if="vm.param.hasRightToCreateMesure">
+
+    <div class="col-sm-3">
+        <div ng-show="vm.param.state.includes('home.helios.mesures.mesure-new')">
+            <div ng-show="vm.param.mambo.status && (vm.fn.isScrutation(vm.etats.scrutation.NOT_YET_SYNCHRONIZED)
+                || vm.fn.isScrutation(vm.etats.scrutation.SYNCHRONIZED))" class="row constitutionTitle"
+                 ng-class="{'text-success':vm.fn.isScrutation(vm.etats.scrutation.SYNCHRONIZED),'text-warning' : vm.fn.isScrutation(vm.etats.scrutation.NOT_YET_SYNCHRONIZED)}">
+                <i class="fa fa-lg fa-wifi text-primary"></i>
+                <span>
+                    <strong> {{vm.param.mambo.wifiName}}
+                        <span ng-show="vm.fn.isScrutation(vm.etats.scrutation.NOT_YET_SYNCHRONIZED)">({{vm.param.mambo.status }})</span>
+                    </strong>
+                </span>
+            </div>
+            <div ng-show="!vm.param.mambo.status && vm.fn.isScrutation(vm.etats.scrutation.NOT_YET_SYNCHRONIZED)"
+                 class="row constitutionTitle text-warning">
+                <i class="fa fa-lg fa-refresh fa-spin text-primary"></i>
+                <strong>Connexion en cours...</strong>
+            </div>
+            <div ng-show="vm.fn.isScrutation(vm.etats.scrutation.NOT_SYNCHRONIZED_TIMEOUT)"
+                 class="row constitutionTitle text-danger"><span><strong>{{vm.errorMessageScrutation}}</strong>
+                <button class="btn btn-primary" ng-click="vm.fn.demarrerScrutation()"><i
+                    class="fa fa-lg fa-refresh"></i></button>
+                </span>
+            </div>
+        </div>
+    </div>
+
+    <div class="constitutionTitle col-sm-3"><span>Prendre une mesure au :</span></div>
+    <!-- écrans de création de mesures pour une intervention -->
+    <ul class="constitution col-sm-4">
+        <li ng-class="{active: vm.fn.isPointActivated('RE')}">
+            <a data-ui-sref="home.helios.mesures.mesure-new({typeMesure: 'RE', groupIndex: null, mesureIndex: null})">RE</a>
+        </li>
+        <li ng-class="{active: vm.fn.isPointActivated('SR')}">
+            <a data-ui-sref="home.helios.mesures.mesure-new({typeMesure: 'SR', groupIndex: null, mesureIndex: null})">SR</a>
+        </li>
+        <li ng-class="{active: vm.fn.isPointActivated('PC')}">
+            <a data-ui-sref="home.helios.mesures.mesure-new({typeMesure: 'PC', groupIndex: null, mesureIndex: null})">PC</a>
+        </li>
+        <li ng-class="{active: vm.fn.isPointActivated('PT')}">
+            <a data-ui-sref="home.helios.mesures.mesure-new({typeMesure: 'PT', groupIndex: null, mesureIndex: null})">PT</a>
+        </li>
+        <li ng-class="{active: vm.fn.isPointActivated('PM')}">
+            <a data-ui-sref="home.helios.mesures.mesure-new({typeMesure: 'PM', groupIndex: null, mesureIndex: null})">PM</a>
+        </li>
+        <div class="progress progress-striped active">
+            <div style="width:100%;" class="progress-bar progress-bar-warning"></div>
+        </div>
+    </ul>
+</div>

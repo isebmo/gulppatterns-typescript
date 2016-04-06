@@ -1,0 +1,12 @@
+<section>
+    <form>
+        <fieldset>
+            <div ng-repeat="question in vm.questions" class="checkbox">
+                <legend>{{question.intro}}</legend>
+                <label ng-repeat="choice in question.choice">
+                    <input ng-value="choice.code" type="checkbox"> {{choice.text}}
+                </label>
+            </div>
+        </fieldset>
+    </form>
+</section>
